@@ -1,0 +1,74 @@
+<zk>
+	<style>
+		.children_component {
+			border: 2px solid #FF0000;
+			border-radius: 6px;
+			-webkit-animation: appear 2s; /* Chrome, Safari, Opera */
+  			animation: appear 2s;
+		}
+		
+		/* Chrome, Safari, Opera */
+		@-webkit-keyframes appear {
+			50% {border-color: #0000FF;}
+		}
+		
+		/* Standard syntax */
+		@keyframes appear {
+			50% {border-color: #0000FF;}
+		}
+	</style>
+	<window title="Product List" border="normal" width="600px" height="350px" viewModel="@id('vm') @init('org.zkoss.blog.example.childrenbinding.ProductListVM')" style="margin:50px 0 0 50px">
+		<hlayout>
+			<vlayout hflex="1">
+				<hlayout>
+					<div hflex="1">
+						<label value="Children binding using List"/>
+						<separator />
+						<hlayout>
+							<label value="Functions : " />
+							<button label="add" onClick="@command('add_list')" />
+							<button label="edit" onClick="@command('edit_list')" />
+							<button label="remove" onClick="@command('remove_list')" />
+						</hlayout>
+						<separator />
+						<vlayout children="@load(vm.list)">
+							<template name="children">
+								<hlayout class="children_component">
+									<checkbox hflex="1" label="@load(each.name)" onCheck="@command('doChecked_list', picked=each, checked=self.checked)"/>
+									<div hflex="1">
+										<label value="$" />
+										<label value="@load(each.price)" />
+									</div>
+								</hlayout>
+								<separator />
+							</template>
+						</vlayout>	
+					</div>
+					<div hflex="1">
+						<label value="Children binding using ListModel"/>
+						<separator />
+						<hlayout>
+							<label value="Functions : " />
+							<button label="add" onClick="@command('add_model')" />
+							<button label="edit" onClick="@command('edit_model')" />
+							<button label="remove" onClick="@command('remove_model')" />
+						</hlayout>
+						<separator />
+						<vlayout children="@load(vm.model)">
+							<template name="children">
+								<hlayout class="children_component">
+									<checkbox hflex="1" label="@load(each.name)" onCheck="@command('doChecked_model', picked=each, checked=self.checked)"/>
+									<div hflex="1">
+										<label value="$" />
+										<label value="@load(each.price)" />
+									</div>
+								</hlayout>
+								<separator />
+							</template>
+						</vlayout>	
+					</div>
+				</hlayout>
+			</vlayout>
+		</hlayout>
+	</window>
+</zk>
